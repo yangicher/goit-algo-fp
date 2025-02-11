@@ -13,7 +13,7 @@ class Graph:
         self.graph[v].append((u, weight))
     
     def dijkstra(self, start):
-        min_heap = [(0, start)]
+        min_heap = [(0, start)]  
         distances = {vertex: float('inf') for vertex in self.graph}
         distances[start] = 0
         
@@ -39,10 +39,8 @@ def main():
     g.add_edge('B', 'D', 1)
     g.add_edge('C', 'D', 8)
 
-    print("Shortest distances A:", g.dijkstra('A'))
-    print("Shortest distances B:", g.dijkstra('B'))
-    print("Shortest distances C:", g.dijkstra('C'))
-    print("Shortest distances D:", g.dijkstra('D'))
+    for node in g.graph:
+        print(f"Shortest distances from {node}:", g.dijkstra(node))
 
 if __name__ == "__main__":
     main()
