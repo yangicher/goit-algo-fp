@@ -12,8 +12,6 @@ def print_list(head):
     while current:
         print(current.data)
         current = current.next
-    print("None")
-
 
 def push(head, data):
     return Node(data, head)
