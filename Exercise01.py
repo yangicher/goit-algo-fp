@@ -10,8 +10,10 @@ class Node:
 def print_list(head):
     current = head
     while current:
-        print(current.data)
+        print(current.data, end=" -> ")
         current = current.next
+    print("---")
+
 
 def push(head, data):
     return Node(data, head)
@@ -61,7 +63,6 @@ def merge_sort(head):
 
     middle = get_middle(head)
     next_to_middle = middle.next
-
     middle.next = None
 
     left = merge_sort(head)
@@ -79,11 +80,13 @@ def main():
     list1 = None
     for data in [1, 3, 2, 5, 10, 2, 4, 8]:
         list1 = push(list1, data)
+    print("Original first list:")
     print_list(list1)
 
     list2 = None
     for data in [120, 800, 4, 650]:
         list2 = push(list2, data)
+    print("Original second list:")
     print_list(list2)
 
     list1 = reverse_list(list1)
