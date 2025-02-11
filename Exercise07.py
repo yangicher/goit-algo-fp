@@ -1,16 +1,14 @@
-import random
+import numpy as np
 import matplotlib.pyplot as plt
+from collections import Counter
 
 def simulate_dice_rolls(num_simulations):
-    sum_frequencies = {total: 0 for total in range(2, 13)}
+    rolls = np.random.randint(1, 7, size=(num_simulations, 2))
+    sums = np.sum(rolls, axis=1)
 
-    for _ in range(num_simulations):
-        die1 = random.randint(1, 6)
-        die2 = random.randint(1, 6)
-        total_sum = die1 + die2
-        sum_frequencies[total_sum] += 1
+    sum_frequencies = Counter(sums)
 
-    probabilities = {total: (count / num_simulations) * 100 for total, count in sum_frequencies.items()}
+    probabilities = {total: (count / num_simulations) * 100 for total, count in sorted(sum_frequencies.items())}
     return probabilities
 
 def plot_probability_distribution(probabilities):
@@ -18,7 +16,7 @@ def plot_probability_distribution(probabilities):
     probabilities_values = list(probabilities.values())
 
     plt.figure(figsize=(10, 6))
-    plt.bar(sums, probabilities_values, color="skyblue")
+    plt.bar(sums, probabilities_values, color="skyblue", edgecolor="black")
     plt.xlabel("Sum of Dice Rolls")
     plt.ylabel("Probability (%)")
     plt.title("Probability Distribution of Dice Roll Sums")
@@ -27,10 +25,10 @@ def plot_probability_distribution(probabilities):
     plt.show()
 
 def main():
-    num_simulations = 100000
+    num_simulations = int(input("Enter the number of simulations: "))
     probabilities = simulate_dice_rolls(num_simulations)
 
-    print("Probability Distribution of Dice Rolls:")
+    print("\nProbability Distribution of Dice Rolls:")
     for total, probability in probabilities.items():
         print(f"Sum {total}: {probability:.2f}%")
 
